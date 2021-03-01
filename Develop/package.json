@@ -1,5 +1,5 @@
 {
-    "name": "express-note-taker",
+    "name": "note-taker",
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
