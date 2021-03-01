@@ -14,6 +14,10 @@ notes.get("/notes", function(reg, res) {
     res.sendFile(path.join(mainDirectory, "notes.html"));
 });
 
+notes.get("*", function(reg, res) {
+    res.sendFile(path.join(mainDirectory, "index.html"));
+});
+
 notes.listen(PORT, function() {
     console.log(`App is listening on ${PORT}`)
 })
