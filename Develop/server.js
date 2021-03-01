@@ -17,11 +17,11 @@ notes.get("/notes", function(req, res) {
 });
 
 notes.get("/api/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "./db/db"))
+    res.sendFile(path.join(__dirname, "./db/db.json"))
 });
 
 notes.get("/api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("./db/db", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     res.json(savedNotes[Number(req.params.id)]);
 });
 
@@ -30,14 +30,14 @@ notes.get("*", function(req, res) {
 });
 
 notes.post("/api/notes", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("./db/db", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     //https://www.geeksforgeeks.org/express-js-req-body-property/
     let newNote = req.body;
     let uniqueID = (savedNotes.length).toString();
     newNote.id = uniqueID;
     savedNotes.push(newNote);
 
-    fs.writeFileSync("./db/db", JSON.stringify(savedNotes));
+    fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
     console.log("Note was saved", newNote);
     res.json(savedNotes);
 })
