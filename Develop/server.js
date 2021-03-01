@@ -45,11 +45,14 @@ notes.post("/api/notes", function(req, res) {
 
 //deleting current saved notes
 //https://www.youtube.com/watch?v=L72fhGm1tfE (minute 55)
-notes.delete('/api/notes/:id', (req, res) => {
-    const found = (savedNotes => newNote.id === parseInt(req.params.id));
+notes.delete('./db/db.json', (req, res) => {
+    const found = notes.some(newNote.id === parseInt(req.params.id));
 
     if (found) {
-        res.json((savedNotes => newNote.id === parseInt(req.params.id)));
+        res.json({
+            msg: "Note deleted",
+            notes: notes.filter(newNote.id !== parseInt(req.params.id))
+        });
     } else {
         res.status(400).json({ msg: `No note with that id ${req.params.id}` });
     }
