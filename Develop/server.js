@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const apiRoutes = require("./routes/apiRoutes")
 
 const notes = express();
 const PORT = 9005;
@@ -20,9 +19,15 @@ notes.get("*", function(reg, res) {
     res.sendFile(path.join(mainDirectory, "index.html"));
 });
 
+notes.get("/api/notes", function(reg, res) {
+    res.sendFile(path.join(__dirname, "/db/db.json"))
+})
+
+
+
 //fetching api from JS file
 notes.post("/api/notes", function(reg, res) {
-    let savedNotes = JSON.parse(fs.readFile(".db/db.json"));
+    let savedNotes = JSON.parse(fs.readFile(".db/db.json", "UTF-8"));
     let newNote = req.body;
     let UniqueID = (savedNotes.length).toString();
     newNote.id = UniqueID;
