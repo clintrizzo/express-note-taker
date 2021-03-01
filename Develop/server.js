@@ -15,23 +15,30 @@ notes.get("/notes", function(reg, res) {
     res.sendFile(path.join(mainDirectory, "notes.html"));
 });
 
-notes.get("*", function(reg, res) {
-    res.sendFile(path.join(mainDirectory, "index.html"));
-});
-
 notes.get("/api/notes", function(reg, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"))
 })
 
+notes.get("/api/notes/:id", function(reg, res) {
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    res.json(savedNotes[Number(reg.params.id)]);
+})
 
+notes.get("*", function(reg, res) {
+    res.sendFile(path.join(mainDirectory, "index.html"));
+});
 
 //fetching api from JS file
 notes.post("/api/notes", function(reg, res) {
-    let savedNotes = JSON.parse(fs.readFile(".db/db.json", "UTF-8"));
+    let savedNotes = JSON.parse(fs.readFile(".db/db.json", "utf8"));
     let newNote = req.body;
     let UniqueID = (savedNotes.length).toString();
     newNote.id = UniqueID;
     savedNotes.push(newNote);
+
+    fs.writeFileSync("./db/db,json", JSON.stringify(savedNotes));
+    console.log("Note was saved", newNote);
+    res.json(savedNotes);
 })
 
 //console logging for the return if no errors to tell user the port is active
