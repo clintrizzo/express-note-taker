@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const e = require("express");
 
 const notes = express();
 const PORT = 9005;
@@ -15,30 +16,28 @@ notes.get("/notes", function(req, res) {
     res.sendFile(path.join(mainDirectory, "notes.html"));
 });
 
-notes.get("api/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "/db/db.json"))
+notes.get("/api/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "./db/db"))
 });
 
-notes.get("api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("/db/db.json", "utf8"));
+notes.get("/api/notes/:id", function(req, res) {
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db", "utf8"));
     res.json(savedNotes[Number(req.params.id)]);
 });
 
 notes.get("*", function(req, res) {
-    res.sendFile(path.join(mainDirectory, "index.html"));
+    res.sendFile(path.join(mainDirectory, "notes.html"));
 });
 
-
-//fetching api from JS file
-notes.post("api/notes", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("/db/db.json", "utf8"));
+notes.post("/api/notes", function(req, res) {
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db", "utf8"));
     //https://www.geeksforgeeks.org/express-js-req-body-property/
     let newNote = req.body;
-    let UniqueID = (savedNotes.length).toString();
-    newNote.id = UniqueID;
+    let uniqueID = (savedNotes.length).toString();
+    newNote.id = uniqueID;
     savedNotes.push(newNote);
 
-    fs.writeFileSync("/db/db.json", JSON.stringify(savedNotes));
+    fs.writeFileSync("./db/db", JSON.stringify(savedNotes));
     console.log("Note was saved", newNote);
     res.json(savedNotes);
 })
