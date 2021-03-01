@@ -30,7 +30,8 @@ notes.get("*", function(reg, res) {
 
 //fetching api from JS file
 notes.post("/api/notes", function(reg, res) {
-    let savedNotes = JSON.parse(fs.readFile(".db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFile("./db/db.json", "utf8"));
+    //https://www.geeksforgeeks.org/express-js-req-body-property/
     let newNote = req.body;
     let UniqueID = (savedNotes.length).toString();
     newNote.id = UniqueID;
