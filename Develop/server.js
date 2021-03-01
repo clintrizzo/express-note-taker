@@ -29,6 +29,7 @@ notes.get("*", function(req, res) {
     res.sendFile(path.join(mainDirectory, "notes.html"));
 });
 
+//posting notes to the left column
 notes.post("/api/notes", function(req, res) {
     let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     //https://www.geeksforgeeks.org/express-js-req-body-property/
@@ -41,6 +42,18 @@ notes.post("/api/notes", function(req, res) {
     console.log("Note was saved", newNote);
     res.json(savedNotes);
 })
+
+//deleting current saved notes
+//https://www.youtube.com/watch?v=L72fhGm1tfE (minute 55)
+notes.delete('/api/notes/:id', (req, res) => {
+    const found = (savedNotes => newNote.id === parseInt(req.params.id));
+
+    if (found) {
+        res.json((savedNotes => newNote.id === parseInt(req.params.id)));
+    } else {
+        res.status(400).json({ msg: `No note with that id ${req.params.id}` });
+    }
+});
 
 //console logging for the return if no errors to tell user the port is active
 notes.listen(PORT, function() {
