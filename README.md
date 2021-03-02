@@ -12,7 +12,7 @@ Link to youtube video [express-youtube](https://www.youtube.com/watch?v=L72fhGm1
 
 # deployed site / images
 
-deployed site
+deployed site through heroku
 [express-note-taker](https://clintrizzo.github.io/express-note-taker/)
 
 ![deployed-site](/images/image.1.png)
