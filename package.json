@@ -1,8 +1,8 @@
 {
-    "name": "Develop",
+    "name": "express-notes-taker",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "node server.js",
     "dependencies": {
         "express": "^4.17.1",
         "fs": "^0.0.1-security",
