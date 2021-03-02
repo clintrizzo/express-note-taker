@@ -41,7 +41,7 @@ notes.post("/api/notes", function(req, res) {
 
     fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
     console.log("Note was saved", newNote);
-    res.json(savedNotes);
+    res.json(newNote);
 })
 
 //attempting to delete current saved notes
