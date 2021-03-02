@@ -4,6 +4,8 @@ const fs = require("fs");
 const e = require("express");
 
 const notes = express();
+
+//from heroku documentation to use this port
 const PORT = process.env.PORT || 3000
 const mainDirectory = path.join(__dirname, "/public");
 
