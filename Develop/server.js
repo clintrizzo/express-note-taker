@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const e = require("express");
 
 const notes = express();
 
@@ -45,22 +44,22 @@ notes.post("/api/notes", function(req, res) {
     res.json(savedNotes);
 })
 
-//deleting current saved notes
+//attempting to delete current saved notes
 //https://www.youtube.com/watch?v=L72fhGm1tfE (minute 55)
-notes.delete('./db/db.json', (req, res) => {
-    const found = notes.some(newNote.id === parseInt(req.params.id));
+notes.delete('/api/notes/:id', (req, res) => {
+    const found = uniqueID(req.params.id);
 
     if (found) {
         res.json({
             msg: "Note deleted",
-            notes: notes.filter(newNote.id !== parseInt(req.params.id))
+            notes: uniqueID(req.params.id)
         });
     } else {
         res.status(400).json({ msg: `No note with that id ${req.params.id}` });
     }
 });
 
-//console logging for the return if no errors to tell user the port is active
+//console logging for the return if no errors to tell user that the port is active
 notes.listen(PORT, function() {
     console.log(`App is listening on PORT ${PORT}`)
 })
