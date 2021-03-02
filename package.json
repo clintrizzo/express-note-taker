@@ -9,7 +9,9 @@
         "nodemon": "^2.0.7",
         "util": "^0.12.3"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "express": "^4.16.3"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js"
