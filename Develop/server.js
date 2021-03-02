@@ -4,7 +4,7 @@ const fs = require("fs");
 const e = require("express");
 
 const notes = express();
-const PORT = process.env.PORT || 9005
+const PORT = process.env.PORT || 3000
 const mainDirectory = path.join(__dirname, "/public");
 
 notes.use(express.static("public"));
